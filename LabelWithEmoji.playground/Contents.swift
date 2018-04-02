@@ -7,12 +7,10 @@ extension NSAttributedString {
     static func kernedSpacedText(_ text: String,
                                     letterSpacing: CGFloat = 0.0,
                                     lineHeight: CGFloat? = nil) -> NSAttributedString {
-        // TODO add the font attribute
-
         let attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(NSAttributedStringKey.kern,
                                       value: letterSpacing,
-                                      range: NSRange(location: 0, length: text.count))
+                                      range: NSRange(location: 0, length: text.utf16.count))
 
         if let lineHeight = lineHeight {
             let paragraphStyle = NSMutableParagraphStyle()
@@ -20,18 +18,12 @@ extension NSAttributedString {
 
             attributedString.addAttribute(NSAttributedStringKey.paragraphStyle,
                                           value: paragraphStyle,
-                                          range: NSRange(location: 0, length: text.count))
+                                          range: NSRange(location: 0, length: text.utf16.count))
         }
 
         return attributedString
     }
 }
-
-//for familyName in UIFont.familyNames {
-//    for fontName in UIFont.fontNames(forFamilyName: familyName) {
-//        print(fontName)
-//    }
-//}
 
 class MyViewController : UIViewController {
     override func loadView() {
